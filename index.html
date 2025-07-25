@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #000000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .image-container {
+            margin-bottom: 30px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+        
+        .input-container {
+            margin-top: 30px;
+        }
+        
+        input[type="text"] {
+            background-color: #1a1a1a;
+            border: 2px solid #333;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #666;
+        }
+        
+        button {
+            background-color: #2a2a2a;
+            color: white;
+            border: 2px solid #333;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3a3a3a;
+            border-color: #666;
+        }
+        
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            min-height: 25px;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        @media (max-width: 600px) {
+            input[type="text"], button {
+                display: block;
+                margin: 10px auto;
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img id="quizImage" alt="Quiz Image" />
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="inputField" placeholder="Enter your answer" />
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+        
+        <div class="message" id="resultMsg"></div>
+    </div>
+
+    <script>
+        // 암호화된 데이터
+        const _0x1a2b = ['MQ=='];  // "1"
+        const _0x3c4d = {
+            u1: [0x76, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x62, 0x6c, 0x65, 0x2d, 0x74, 0x61, 0x72, 0x74, 0x75, 0x66, 0x6f, 0x2d, 0x31, 0x63, 0x61, 0x31, 0x30, 0x36],
+            u2: [0x2e, 0x6e, 0x65, 0x74, 0x6c, 0x69, 0x66, 0x79, 0x2e, 0x61, 0x70, 0x70]
+        };
+        
+        // GitHub 이미지 URL 설정 (999.png)
+        function buildImageUrl() {
+            const username = 'idongeon4';
+            const repository = 'k2';
+            
+            return `https://raw.githubusercontent.com/${username}/${repository}/main/999.png`;
+        }
+        
+        // 암호화 해독 함수
+        function decode(str) {
+            try {
+                return atob(str);
+            } catch(e) {
+                return null;
+            }
+        }
+        
+        function bytesToString(bytes) {
+            return String.fromCharCode.apply(null, bytes);
+        }
+        
+        // 이미지 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            const img = document.getElementById('quizImage');
+            img.src = buildImageUrl();
+            
+            img.onerror = function() {
+                this.alt = 'Please update GitHub username and repository in the code';
+                this.style.border = '2px dashed #666';
+                this.style.padding = '50px';
+                this.style.color = '#666';
+            };
+        });
+        
+        // 정답 확인
+        function checkAnswer() {
+            const input = document.getElementById('inputField').value.trim();
+            const msgDiv = document.getElementById('resultMsg');
+            
+            // 정답 확인 (암호화된 "1")
+            const correctAnswer = decode(_0x1a2b[0]);
+            
+            if (input === correctAnswer || input === '1') {
+                msgDiv.innerHTML = '';
+                // 목표 URL로 이동
+                const targetUrl = 'https://' + bytesToString(_0x3c4d.u1) + bytesToString(_0x3c4d.u2);
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 300);
+            } else {
+                msgDiv.innerHTML = '<span class="error">Incorrect answer</span>';
+                setTimeout(() => {
+                    msgDiv.innerHTML = '';
+                }, 3000);
+            }
+            
+            document.getElementById('inputField').value = '';
+        }
+        
+        // Enter 키 지원
+        document.getElementById('inputField').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        
+        // 보안 기능들
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+        
+        // 변수 정리
+        setTimeout(() => {
+            try {
+                delete window._0x1a2b;
+                delete window._0x3c4d;
+            } catch(e) {}
+        }, 2000);
+    </script>
+</body>
+</html>
